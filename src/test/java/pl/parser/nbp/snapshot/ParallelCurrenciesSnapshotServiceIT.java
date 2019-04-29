@@ -2,29 +2,40 @@ package pl.parser.nbp.snapshot;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.parser.nbp.snapshot.provider.CurrenciesSnapshotProvider;
+import pl.parser.nbp.snapshot.provider.FileNamesProvider;
+import pl.parser.nbp.snapshot.provider.MockCurrenciesSnapshotProvider;
+import pl.parser.nbp.snapshot.provider.MockFileNamesProvider;
 
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.List;
 
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ParallelCurrenciesSnapshotServiceIT {
-    private static final String FILE = "c073z070413";
+    private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
 
     private CurrenciesSnapshotService currenciesSnapshotService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        FileNamesProvider fileNamesProvider = new MockFileNamesProvider();
         CurrenciesSnapshotProvider currenciesSnapshotProvider = new MockCurrenciesSnapshotProvider();
-        currenciesSnapshotService = new ParallelCurrenciesSnapshotService(currenciesSnapshotProvider);
+        currenciesSnapshotService = new ParallelCurrenciesSnapshotService(fileNamesProvider, currenciesSnapshotProvider);
     }
 
     @Test
     public void getCurrencySnapshots() {
-        Collection<CurrencySnapshot> currencySnapshots = currenciesSnapshotService.getCurrenciesSnapshots();
-        assertThat(currencySnapshots).hasSize(3);
-        assertThat(currencySnapshots)
+        List<CurrenciesSnapshotResponse> currenciesSnapshotResponse =
+                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, START_DATE);
+
+        assertThat(currenciesSnapshotResponse).hasSize(1);
+        assertThat(currenciesSnapshotResponse.get(0).getPositions())
                 .extracting(CurrencySnapshot::getCurrencyCode, CurrencySnapshot::getBuyRate, CurrencySnapshot::getSellRate)
                 .contains(
                         tuple("USD", new BigDecimal("2.8210"), new BigDecimal("2.8780")),

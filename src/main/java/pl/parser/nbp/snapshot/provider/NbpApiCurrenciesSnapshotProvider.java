@@ -1,4 +1,6 @@
-package pl.parser.nbp.snapshot;
+package pl.parser.nbp.snapshot.provider;
+
+import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 
 import javax.xml.bind.JAXBException;
 import java.net.MalformedURLException;

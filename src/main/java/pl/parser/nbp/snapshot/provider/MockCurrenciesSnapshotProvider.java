@@ -1,9 +1,9 @@
-package pl.parser.nbp.snapshot;
+package pl.parser.nbp.snapshot.provider;
+
+import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class MockCurrenciesSnapshotProvider implements CurrenciesSnapshotProvider {
     private static final String FILE_PATH = "src/test/resources/%s.xml";

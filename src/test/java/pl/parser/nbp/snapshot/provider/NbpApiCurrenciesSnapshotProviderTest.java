@@ -1,7 +1,9 @@
-package pl.parser.nbp.snapshot;
+package pl.parser.nbp.snapshot.provider;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
+import pl.parser.nbp.snapshot.CurrencySnapshot;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,7 +26,7 @@ public class NbpApiCurrenciesSnapshotProviderTest {
     }
 
     @Test
-    public void shouldParseSnapshot() throws URISyntaxException, IOException {
+    public void shouldParseSnapshot() {
         CurrenciesSnapshotResponse snapshotFromUrl = currenciesSnapshotReader.getCurrencies(FILE);
 
         assertThat(snapshotFromUrl.getTableNumber()).isEqualTo("73/C/NBP/2007");
