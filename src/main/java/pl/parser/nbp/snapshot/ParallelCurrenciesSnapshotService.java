@@ -19,7 +19,7 @@ public class ParallelCurrenciesSnapshotService implements CurrenciesSnapshotServ
     }
 
     public List<CurrenciesSnapshotResponse> getCurrenciesSnapshots(LocalDate startDate, LocalDate endDate) {
-        return fileNamesProvider.getFileNames(startDate, endDate).stream()
+        return fileNamesProvider.getFileNames(startDate, endDate).parallelStream()
                 .map(fileName -> currenciesSnapshotProvider.getCurrencies(fileName))
                 .collect(Collectors.toList());
     }

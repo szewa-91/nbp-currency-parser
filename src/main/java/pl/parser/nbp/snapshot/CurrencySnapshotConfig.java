@@ -2,10 +2,7 @@ package pl.parser.nbp.snapshot;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.parser.nbp.snapshot.provider.CurrenciesSnapshotProvider;
-import pl.parser.nbp.snapshot.provider.FileNamesProvider;
-import pl.parser.nbp.snapshot.provider.NbpApiCurrenciesSnapshotProvider;
-import pl.parser.nbp.snapshot.provider.MockFileNamesProvider;
+import pl.parser.nbp.snapshot.provider.*;
 
 @Configuration
 public class CurrencySnapshotConfig {
@@ -21,6 +18,6 @@ public class CurrencySnapshotConfig {
 
     @Bean
     FileNamesProvider fileNamesProvider() {
-        return new MockFileNamesProvider();
+        return new NbpApiFileNamesProvider();
     }
 }

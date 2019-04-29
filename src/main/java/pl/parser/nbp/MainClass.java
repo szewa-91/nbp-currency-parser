@@ -9,13 +9,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class MainClass {
-    private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
+    private static final LocalDate START_DATE = LocalDate.of(2019, 2, 10);
+    private static final LocalDate END_DATE = LocalDate.of(2019, 2, 20);
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(MainConfig.class);
         CurrenciesSnapshotService currenciesSnapshotService = context.getBean(CurrenciesSnapshotService.class);
-        List<CurrenciesSnapshotResponse> snapshotFromUrl =
-                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, START_DATE);
-        System.out.println(snapshotFromUrl);
+        List<CurrenciesSnapshotResponse> currenciesSnapshots =
+                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, END_DATE);
+        System.out.println(currenciesSnapshots);
     }
 }

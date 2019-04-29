@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ParallelCurrenciesSnapshotServiceIT {
+public class CurrenciesSnapshotServiceIT {
     private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
 
     private CurrenciesSnapshotService currenciesSnapshotService;
@@ -30,11 +30,11 @@ public class ParallelCurrenciesSnapshotServiceIT {
     }
 
     @Test
-    public void getCurrencySnapshots() {
+    public void shouldReturnCurrenciesSnapshots() {
         List<CurrenciesSnapshotResponse> currenciesSnapshotResponse =
                 currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, START_DATE);
 
-        assertThat(currenciesSnapshotResponse).hasSize(1);
+        assertThat(currenciesSnapshotResponse).hasSize(3);
         assertThat(currenciesSnapshotResponse.get(0).getPositions())
                 .extracting(CurrencySnapshot::getCurrencyCode, CurrencySnapshot::getBuyRate, CurrencySnapshot::getSellRate)
                 .contains(
