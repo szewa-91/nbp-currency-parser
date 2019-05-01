@@ -7,7 +7,6 @@ import pl.parser.nbp.statistics.StatisticsService;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -15,7 +14,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     private CurrenciesSnapshotService currenciesSnapshotService;
     private StatisticsService statisticsService;
 
-    public CurrencyServiceImpl(CurrenciesSnapshotService currenciesSnapshotService,
+    CurrencyServiceImpl(CurrenciesSnapshotService currenciesSnapshotService,
                                StatisticsService statisticsService) {
         this.currenciesSnapshotService = currenciesSnapshotService;
         this.statisticsService = statisticsService;

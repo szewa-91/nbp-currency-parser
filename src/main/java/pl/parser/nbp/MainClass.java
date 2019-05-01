@@ -4,6 +4,7 @@ import pl.parser.nbp.currency.CurrencyService;
 import pl.parser.nbp.currency.CurrencyServiceFactory;
 import pl.parser.nbp.currency.CurrencyStatistics;
 import pl.parser.nbp.snapshot.NbpCurrencySnapshotServiceFactory;
+import pl.parser.nbp.statistics.StatisticsServiceFactory;
 
 import java.time.LocalDate;
 
@@ -16,10 +17,11 @@ public class MainClass {
         System.out.println(statistics);
     }
 
+
     private static CurrencyService getCurrencyService() {
-        NbpCurrencySnapshotServiceFactory currenciesSnapshotService =
-                new NbpCurrencySnapshotServiceFactory();
-        CurrencyServiceFactory currencyServiceFactory = new CurrencyServiceFactory(currenciesSnapshotService);
+        CurrencyServiceFactory currencyServiceFactory = new CurrencyServiceFactory(
+                new NbpCurrencySnapshotServiceFactory(),
+                new StatisticsServiceFactory());
 
         return currencyServiceFactory.createCurrencyService();
     }

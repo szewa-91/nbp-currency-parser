@@ -1,9 +1,9 @@
 package pl.parser.nbp.currency;
 
-import org.assertj.core.internal.BigDecimals;
 import org.junit.Before;
 import org.junit.Test;
 import pl.parser.nbp.snapshot.TestCurrencySnapshotServiceFactory;
+import pl.parser.nbp.statistics.StatisticsServiceFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,7 +19,8 @@ public class CurrencyServiceE2EIT {
     public void setUp() {
         TestCurrencySnapshotServiceFactory currencySnapshotServiceFactory =
                 new TestCurrencySnapshotServiceFactory();
-        currencyService = new CurrencyServiceFactory(currencySnapshotServiceFactory)
+        StatisticsServiceFactory statisticsServiceFactory = new StatisticsServiceFactory();
+        currencyService = new CurrencyServiceFactory(currencySnapshotServiceFactory, statisticsServiceFactory)
                 .createCurrencyService();
     }
 

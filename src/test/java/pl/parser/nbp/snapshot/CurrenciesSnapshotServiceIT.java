@@ -3,10 +3,6 @@ package pl.parser.nbp.snapshot;
 import org.assertj.core.api.ListAssert;
 import org.junit.Before;
 import org.junit.Test;
-import pl.parser.nbp.snapshot.provider.CurrenciesSnapshotProvider;
-import pl.parser.nbp.snapshot.provider.FileNamesProvider;
-import pl.parser.nbp.snapshot.provider.MockCurrenciesSnapshotProvider;
-import pl.parser.nbp.snapshot.provider.MockFileNamesProvider;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +12,6 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.mockito.Mockito.mock;
 
 public class CurrenciesSnapshotServiceIT {
     private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);

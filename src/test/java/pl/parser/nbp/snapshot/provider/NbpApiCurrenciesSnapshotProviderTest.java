@@ -5,9 +5,7 @@ import org.junit.Test;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrencySnapshot;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;

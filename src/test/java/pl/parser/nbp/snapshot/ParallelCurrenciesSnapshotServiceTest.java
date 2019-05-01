@@ -8,7 +8,6 @@ import pl.parser.nbp.snapshot.provider.FileNamesProvider;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
