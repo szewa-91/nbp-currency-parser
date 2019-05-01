@@ -13,7 +13,7 @@ public class MainClass {
 
     public static void main(String[] args) {
         CurrenciesSnapshotService currenciesSnapshotService =
-                new NbpCurrencySnapshotServiceFactory().currenciesSnapshotService();
+                new NbpCurrencySnapshotServiceFactory().createCurrenciesSnapshotService();
 
         List<CurrenciesSnapshotResponse> currenciesSnapshots =
                 currenciesSnapshotService

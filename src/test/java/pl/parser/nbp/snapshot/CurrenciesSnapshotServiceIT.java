@@ -11,11 +11,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CurrenciesSnapshotServiceIT {
     private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
@@ -24,9 +22,8 @@ public class CurrenciesSnapshotServiceIT {
 
     @Before
     public void setUp() {
-        FileNamesProvider fileNamesProvider = new MockFileNamesProvider();
-        CurrenciesSnapshotProvider currenciesSnapshotProvider = new MockCurrenciesSnapshotProvider();
-        currenciesSnapshotService = new ParallelCurrenciesSnapshotService(fileNamesProvider, currenciesSnapshotProvider);
+        currenciesSnapshotService = new TestCurrencySnapshotServiceFactory()
+                .createCurrenciesSnapshotService();
     }
 
     @Test
@@ -42,6 +39,17 @@ public class CurrenciesSnapshotServiceIT {
                         tuple("EUR", new BigDecimal("3.7976"), new BigDecimal("3.8744")),
                         tuple("CHF", new BigDecimal("2.3163"), new BigDecimal("2.3631"))
                 );
+    }
+}
 
+class TestCurrencySnapshotServiceFactory extends CurrencySnapshotServiceFactory {
+    @Override
+    FileNamesProvider createFileNamesProvider() {
+        return new MockFileNamesProvider();
+    }
+
+    @Override
+    CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
+        return new MockCurrenciesSnapshotProvider();
     }
 }

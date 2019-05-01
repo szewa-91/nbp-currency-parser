@@ -4,7 +4,7 @@ import pl.parser.nbp.snapshot.provider.CurrenciesSnapshotProvider;
 import pl.parser.nbp.snapshot.provider.FileNamesProvider;
 
 public abstract class CurrencySnapshotServiceFactory {
-    public CurrenciesSnapshotService currenciesSnapshotService() {
+    public CurrenciesSnapshotService createCurrenciesSnapshotService() {
         return new ParallelCurrenciesSnapshotService(
                 createFileNamesProvider(),
                 createCurrenciesSnapshotProvider());
