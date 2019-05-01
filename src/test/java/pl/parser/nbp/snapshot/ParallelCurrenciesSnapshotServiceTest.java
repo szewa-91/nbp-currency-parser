@@ -7,6 +7,7 @@ import pl.parser.nbp.snapshot.provider.FileNamesProvider;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +37,7 @@ public class ParallelCurrenciesSnapshotServiceTest {
 
     @Test
     public void shouldReturnCurrenciesSnapshots() {
-        List<CurrenciesSnapshotResponse> currenciesSnapshotResponse =
+        Collection<CurrenciesSnapshotResponse> currenciesSnapshotResponse =
                 currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, END_DATE);
 
         assertThat(currenciesSnapshotResponse)
