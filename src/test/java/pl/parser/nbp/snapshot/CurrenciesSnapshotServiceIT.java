@@ -42,14 +42,3 @@ public class CurrenciesSnapshotServiceIT {
     }
 }
 
-class TestCurrencySnapshotServiceFactory extends CurrencySnapshotServiceFactory {
-    @Override
-    FileNamesProvider createFileNamesProvider() {
-        return new MockFileNamesProvider();
-    }
-
-    @Override
-    CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
-        return new MockCurrenciesSnapshotProvider();
-    }
-}
