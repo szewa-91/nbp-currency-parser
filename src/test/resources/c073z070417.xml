@@ -7,8 +7,8 @@
     <nazwa_waluty>dolar amerykañski</nazwa_waluty>
     <przelicznik>1</przelicznik>
     <kod_waluty>USD</kod_waluty>
-    <kurs_kupna>2,8310</kurs_kupna>
-    <kurs_sprzedazy>2,8880</kurs_sprzedazy>
+    <kurs_kupna>2,8410</kurs_kupna>
+    <kurs_sprzedazy>2,8980</kurs_sprzedazy>
   </pozycja>
   <pozycja>
     <nazwa_waluty>euro</nazwa_waluty>

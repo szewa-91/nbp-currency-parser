@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 
 public class CurrenciesSnapshotServiceIT {
     private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
+    private static final LocalDate END_DATE = LocalDate.of(2007, 4, 17);
 
     private CurrenciesSnapshotService currenciesSnapshotService;
 
@@ -32,7 +33,7 @@ public class CurrenciesSnapshotServiceIT {
     @Test
     public void shouldReturnCurrenciesSnapshots() {
         Collection<CurrenciesSnapshotResponse> currenciesSnapshotResponse =
-                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, START_DATE);
+                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, END_DATE);
 
         assertAllCurrencySnapshots(currenciesSnapshotResponse).hasSize(9);
         assertAllCurrencySnapshots(currenciesSnapshotResponse)

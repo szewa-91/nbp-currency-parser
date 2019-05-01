@@ -30,4 +30,13 @@ public class CurrencyStatistics {
     public void setSellRateStandardDeviation(BigDecimal sellRateStandardDeviation) {
         this.sellRateStandardDeviation = sellRateStandardDeviation;
     }
+
+    @Override
+    public String toString() {
+        return "CurrencyStatistics{" +
+                "currencyCode='" + currencyCode + '\'' +
+                ", averageBuyRate=" + averageBuyRate +
+                ", sellRateStandardDeviation=" + sellRateStandardDeviation +
+                '}';
+    }
 }
