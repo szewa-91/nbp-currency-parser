@@ -1,6 +1,5 @@
 package pl.parser.nbp.snapshot;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.parser.nbp.snapshot.provider.CurrenciesSnapshotProvider;
 import pl.parser.nbp.snapshot.provider.FileNamesProvider;
 
@@ -12,7 +11,6 @@ public class ParallelCurrenciesSnapshotService implements CurrenciesSnapshotServ
     private FileNamesProvider fileNamesProvider;
     private CurrenciesSnapshotProvider currenciesSnapshotProvider;
 
-    @Autowired
     ParallelCurrenciesSnapshotService(FileNamesProvider fileNamesProvider, CurrenciesSnapshotProvider currenciesSnapshotProvider) {
         this.fileNamesProvider = fileNamesProvider;
         this.currenciesSnapshotProvider = currenciesSnapshotProvider;

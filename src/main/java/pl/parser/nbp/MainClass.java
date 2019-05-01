@@ -1,9 +1,8 @@
 package pl.parser.nbp;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotService;
+import pl.parser.nbp.snapshot.CurrencySnapshotContext;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,10 +12,9 @@ public class MainClass {
     private static final LocalDate END_DATE = LocalDate.of(2019, 2, 20);
 
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(MainConfig.class);
-        CurrenciesSnapshotService currenciesSnapshotService = context.getBean(CurrenciesSnapshotService.class);
+        CurrencySnapshotContext context = new CurrencySnapshotContext();
         List<CurrenciesSnapshotResponse> currenciesSnapshots =
-                currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, END_DATE);
+                context.currenciesSnapshotService().getCurrenciesSnapshots(START_DATE, END_DATE);
         System.out.println(currenciesSnapshots);
     }
 }
