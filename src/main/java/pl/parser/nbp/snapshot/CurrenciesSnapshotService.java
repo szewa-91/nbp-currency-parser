@@ -1,8 +1,8 @@
 package pl.parser.nbp.snapshot;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 public interface CurrenciesSnapshotService {
-    List<CurrenciesSnapshotResponse> getCurrenciesSnapshots(LocalDate startDate, LocalDate endDate);
+    Collection<CurrenciesSnapshotResponse> getCurrenciesSnapshots(LocalDate startDate, LocalDate endDate);
 }

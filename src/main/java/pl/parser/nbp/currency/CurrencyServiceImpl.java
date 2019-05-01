@@ -15,6 +15,10 @@ public class CurrencyServiceImpl implements CurrencyService {
     public CurrencyStatistics getCurrencyStatistics(String currencyCode,
                                                     LocalDate startDate,
                                                     LocalDate endDate) {
+        var currenciesSnapshots =
+                currenciesSnapshotService.getCurrenciesSnapshots(startDate, endDate);
+        System.out.println(currenciesSnapshots);
+
         return new CurrencyStatistics();
     }
 }

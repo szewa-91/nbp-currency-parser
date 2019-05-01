@@ -1,5 +1,6 @@
 package pl.parser.nbp;
 
+import pl.parser.nbp.currency.CurrencyService;
 import pl.parser.nbp.currency.CurrencyServiceFactory;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotService;
@@ -13,11 +14,14 @@ public class MainClass {
     private static final LocalDate END_DATE = LocalDate.of(2019, 2, 20);
 
     public static void main(String[] args) {
+        getCurrencyService().getCurrencyStatistics("USD", START_DATE, END_DATE);
+    }
+
+    private static CurrencyService getCurrencyService() {
         NbpCurrencySnapshotServiceFactory currenciesSnapshotService =
                 new NbpCurrencySnapshotServiceFactory();
         CurrencyServiceFactory currencyServiceFactory = new CurrencyServiceFactory(currenciesSnapshotService);
 
-        currencyServiceFactory.createCurrencyService()
-                        .getCurrencyStatistics("USD", START_DATE, END_DATE);
+        return currencyServiceFactory.createCurrencyService();
     }
 }
