@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrencySnapshot;
-import pl.parser.nbp.snapshot.FileNotLoadedException;
 
 import javax.xml.bind.JAXBException;
 import java.math.BigDecimal;

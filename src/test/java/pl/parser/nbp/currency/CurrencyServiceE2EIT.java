@@ -31,7 +31,7 @@ public class CurrencyServiceE2EIT {
         assertThat(statistics.getAverageBuyRate())
                 .isEqualTo(new BigDecimal("2.8310"));
         assertThat(statistics.getSellRateStandardDeviation())
-                .isEqualTo(new BigDecimal("0.0100"));
+                .isEqualTo(new BigDecimal("0.0082"));
     }
 
     @Test
@@ -40,6 +40,6 @@ public class CurrencyServiceE2EIT {
         assertThat(statistics.getAverageBuyRate())
                 .isEqualTo(new BigDecimal("3.8302"));
         assertThat(statistics.getSellRateStandardDeviation())
-                .isEqualTo(new BigDecimal("0.0480"));
+                .isEqualTo(new BigDecimal("0.0476"));
     }
 }
