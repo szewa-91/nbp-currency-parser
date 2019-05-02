@@ -7,12 +7,12 @@ import pl.parser.nbp.snapshot.provider.MockFileNamesProvider;
 
 public class TestCurrencySnapshotServiceFactory extends CurrencySnapshotServiceFactory {
     @Override
-    FileNamesProvider createFileNamesProvider() {
+    protected FileNamesProvider createFileNamesProvider() {
         return new MockFileNamesProvider();
     }
 
     @Override
-    CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
+    protected CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
         return new MockCurrenciesSnapshotProvider();
     }
 }

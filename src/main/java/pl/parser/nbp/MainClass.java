@@ -9,16 +9,22 @@ import pl.parser.nbp.statistics.StatisticsServiceFactory;
 import java.time.LocalDate;
 
 public class MainClass {
-    private static final LocalDate START_DATE = LocalDate.of(2017, 12, 10);
-    private static final LocalDate END_DATE = LocalDate.of(2019, 2, 20);
     private static final int RETRY_ATTEMPTS = 15;
     private static final int RETRY_INTERVAL = 400;
 
     public static void main(String[] args) {
-        CurrencyStatistics statistics = getCurrencyService().getCurrencyStatistics("USD", START_DATE, END_DATE);
-        System.out.println(statistics);
+        String currency = args[0];
+        LocalDate startDate = LocalDate.parse(args[1]);
+        LocalDate endDate = LocalDate.parse(args[2]);
+        CurrencyStatistics statistics =
+                getCurrencyService().getCurrencyStatistics(currency, startDate, endDate);
+        printStatistics(statistics);
     }
 
+    private static void printStatistics(CurrencyStatistics statistics) {
+        System.out.println(statistics.getAverageBuyRate());
+        System.out.println(statistics.getSellRateStandardDeviation());
+    }
 
     private static CurrencyService getCurrencyService() {
         CurrencyServiceFactory currencyServiceFactory = new CurrencyServiceFactory(

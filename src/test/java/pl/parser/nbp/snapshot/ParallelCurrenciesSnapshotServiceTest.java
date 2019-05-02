@@ -78,7 +78,7 @@ public class ParallelCurrenciesSnapshotServiceTest {
                 .thenReturn(RESPONSE_1);
 
         assertThatThrownBy(() -> currenciesSnapshotService.getCurrenciesSnapshots(START_DATE, END_DATE))
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(FileNotLoadedException.class)
                 .hasMessageStartingWith("javax.xml.bind.JAXBException");
     }
 

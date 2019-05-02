@@ -27,27 +27,19 @@ public class CurrencyServiceE2EIT {
 
     @Test
     public void shouldReturnStatisticsForUsd() {
-        assertThat(currencyService.getCurrencyStatistics("USD", START_DATE, END_DATE))
-                .extracting(CurrencyStatistics::getCurrencyCode,
-                        CurrencyStatistics::getAverageBuyRate,
-                        CurrencyStatistics::getSellRateStandardDeviation)
-                .containsExactly(
-                        "USD",
-                        new BigDecimal("2.8310"),
-                        new BigDecimal("0.0100")
-                );
+        CurrencyStatistics statistics = currencyService.getCurrencyStatistics("USD", START_DATE, END_DATE);
+        assertThat(statistics.getAverageBuyRate())
+                .isEqualTo(new BigDecimal("2.8310"));
+        assertThat(statistics.getSellRateStandardDeviation())
+                .isEqualTo(new BigDecimal("0.0100"));
     }
 
     @Test
     public void shouldReturnStatisticsForEur() {
-        assertThat(currencyService.getCurrencyStatistics("EUR", START_DATE, END_DATE))
-                .extracting(CurrencyStatistics::getCurrencyCode,
-                        CurrencyStatistics::getAverageBuyRate,
-                        CurrencyStatistics::getSellRateStandardDeviation)
-                .containsExactly(
-                        "EUR",
-                        new BigDecimal("3.8302"),
-                        new BigDecimal("0.0480")
-                );
+        CurrencyStatistics statistics = currencyService.getCurrencyStatistics("EUR", START_DATE, END_DATE);
+        assertThat(statistics.getAverageBuyRate())
+                .isEqualTo(new BigDecimal("3.8302"));
+        assertThat(statistics.getSellRateStandardDeviation())
+                .isEqualTo(new BigDecimal("0.0480"));
     }
 }

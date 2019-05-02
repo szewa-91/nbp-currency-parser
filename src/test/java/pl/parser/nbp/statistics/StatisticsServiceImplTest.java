@@ -1,6 +1,5 @@
 package pl.parser.nbp.statistics;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 import pl.parser.nbp.currency.CurrencyStatistics;
 import pl.parser.nbp.snapshot.CurrencySnapshot;
@@ -9,11 +8,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StatisticsServiceImplTest {
     private StatisticsService statisticsService = new StatisticsServiceImpl();
-
-    private SoftAssertions softAssert = new SoftAssertions();
 
     @Test
     public void shouldCalculateStatistics() {
@@ -25,12 +24,22 @@ public class StatisticsServiceImplTest {
 
         CurrencyStatistics currencyStatistics = statisticsService.calculateStatistics(currencySnapshots);
 
-        softAssert.assertThat(currencyStatistics.getAverageBuyRate())
-                .isEqualByComparingTo(new BigDecimal("4.6333"));
-        softAssert.assertThat(currencyStatistics.getSellRateStandardDeviation())
-                .isEqualByComparingTo(new BigDecimal("0.1249"));
+        assertThat(currencyStatistics.getAverageBuyRate())
+                .isEqualTo(new BigDecimal("4.6333"));
+        assertThat(currencyStatistics.getSellRateStandardDeviation())
+                .isEqualTo(new BigDecimal("0.1249"));
 
-        softAssert.assertAll();
+    }
+
+    @Test
+    public void shouldReturnObjectForNoData() {
+        List<CurrencySnapshot> currencySnapshots = emptyList();
+
+        CurrencyStatistics currencyStatistics = statisticsService.calculateStatistics(currencySnapshots);
+
+        assertThat(currencyStatistics.getAverageBuyRate()).isNull();
+        assertThat(currencyStatistics.getSellRateStandardDeviation()).isNull();
+
     }
 
     private CurrencySnapshot currencySnapshot(String code, String buyRate, String sellRate) {

@@ -25,8 +25,8 @@ public abstract class CurrencySnapshotServiceFactory {
         return this;
     }
 
-    abstract FileNamesProvider createFileNamesProvider();
+    protected abstract FileNamesProvider createFileNamesProvider();
 
-    abstract CurrenciesSnapshotProvider createCurrenciesSnapshotProvider();
+    protected abstract CurrenciesSnapshotProvider createCurrenciesSnapshotProvider();
 
 }
