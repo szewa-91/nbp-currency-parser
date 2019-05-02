@@ -15,7 +15,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     private StatisticsService statisticsService;
 
     CurrencyServiceImpl(CurrenciesSnapshotService currenciesSnapshotService,
-                               StatisticsService statisticsService) {
+                        StatisticsService statisticsService) {
         this.currenciesSnapshotService = currenciesSnapshotService;
         this.statisticsService = statisticsService;
     }

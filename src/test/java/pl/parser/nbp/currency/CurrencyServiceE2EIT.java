@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CurrencyServiceE2EIT {
     private static final LocalDate START_DATE = LocalDate.of(2007, 4, 13);
+    private static final LocalDate END_DATE = LocalDate.of(2007, 4, 17);
 
     private CurrencyService currencyService;
 
@@ -25,8 +26,8 @@ public class CurrencyServiceE2EIT {
     }
 
     @Test
-    public void shouldReturnStatisticsForCurrency() {
-        assertThat(currencyService.getCurrencyStatistics("USD", START_DATE, START_DATE))
+    public void shouldReturnStatisticsForUsd() {
+        assertThat(currencyService.getCurrencyStatistics("USD", START_DATE, END_DATE))
                 .extracting(CurrencyStatistics::getCurrencyCode,
                         CurrencyStatistics::getAverageBuyRate,
                         CurrencyStatistics::getSellRateStandardDeviation)
@@ -34,6 +35,19 @@ public class CurrencyServiceE2EIT {
                         "USD",
                         new BigDecimal("2.8310"),
                         new BigDecimal("0.0100")
+                );
+    }
+
+    @Test
+    public void shouldReturnStatisticsForEur() {
+        assertThat(currencyService.getCurrencyStatistics("EUR", START_DATE, END_DATE))
+                .extracting(CurrencyStatistics::getCurrencyCode,
+                        CurrencyStatistics::getAverageBuyRate,
+                        CurrencyStatistics::getSellRateStandardDeviation)
+                .containsExactly(
+                        "EUR",
+                        new BigDecimal("3.8302"),
+                        new BigDecimal("0.0480")
                 );
     }
 }
