@@ -30,9 +30,6 @@ public class CurrenciesSnapshotResponse {
     @XmlElement(name = "pozycja")
     private List<CurrencySnapshot> positions;
 
-    public CurrenciesSnapshotResponse() {
-    }
-
     public String getTableNumber() {
         return tableNumber;
     }

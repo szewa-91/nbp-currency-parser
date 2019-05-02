@@ -12,7 +12,7 @@ public class NbpCurrencySnapshotServiceFactory extends CurrencySnapshotServiceFa
     }
 
     @Override
-    CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
+    protected CurrenciesSnapshotProvider createCurrenciesSnapshotProvider() {
         return new NbpApiCurrenciesSnapshotProvider();
     }
 }

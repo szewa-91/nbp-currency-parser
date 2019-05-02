@@ -34,7 +34,7 @@ public class ParallelCurrenciesSnapshotService implements CurrenciesSnapshotServ
                 return currenciesSnapshotProvider.getCurrencies(fileName);
             } catch (JAXBException e) {
                 if (retryAttemptsLeft == 0) {
-                    throw new RuntimeException(e);
+                    throw new FileNotLoadedException(e);
                 }
                 System.out.println("Retrying...");
             }

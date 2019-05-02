@@ -4,18 +4,19 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrencySnapshot;
+import pl.parser.nbp.snapshot.FileNotLoadedException;
 
 import javax.xml.bind.JAXBException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
+import static org.assertj.core.api.Assertions.*;
 
 // this test uses external connection to NBP service,
 // may fail in case of no connection or changes in files
 public class NbpApiCurrenciesSnapshotProviderTest {
     private static final String FILE = "c073z070413";
+    private static final String NOT_EXISTING_FILE = "c173z980413";
 
     private NbpApiCurrenciesSnapshotProvider currenciesSnapshotReader;
 
@@ -37,5 +38,12 @@ public class NbpApiCurrenciesSnapshotProviderTest {
                         tuple("EUR", new BigDecimal("3.7976"), new BigDecimal("3.8744")),
                         tuple("CHF", new BigDecimal("2.3163"), new BigDecimal("2.3631"))
                 );
+    }
+
+    @Test
+    public void shouldThrowErrorForNotExistingFile() {
+        assertThatThrownBy(() ->
+                currenciesSnapshotReader.getCurrencies(NOT_EXISTING_FILE))
+                .isInstanceOf(JAXBException.class);
     }
 }

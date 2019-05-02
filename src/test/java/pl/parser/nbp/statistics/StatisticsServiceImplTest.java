@@ -9,11 +9,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StatisticsServiceImplTest {
     private StatisticsService statisticsService = new StatisticsServiceImpl();
-
-    private SoftAssertions softAssert = new SoftAssertions();
 
     @Test
     public void shouldCalculateStatistics() {
@@ -25,12 +24,11 @@ public class StatisticsServiceImplTest {
 
         CurrencyStatistics currencyStatistics = statisticsService.calculateStatistics(currencySnapshots);
 
-        softAssert.assertThat(currencyStatistics.getAverageBuyRate())
+        assertThat(currencyStatistics.getAverageBuyRate())
                 .isEqualByComparingTo(new BigDecimal("4.6333"));
-        softAssert.assertThat(currencyStatistics.getSellRateStandardDeviation())
+        assertThat(currencyStatistics.getSellRateStandardDeviation())
                 .isEqualByComparingTo(new BigDecimal("0.1249"));
 
-        softAssert.assertAll();
     }
 
     private CurrencySnapshot currencySnapshot(String code, String buyRate, String sellRate) {
