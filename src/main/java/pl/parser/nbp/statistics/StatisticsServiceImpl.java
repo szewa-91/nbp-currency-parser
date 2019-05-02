@@ -51,7 +51,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         return computeMean(buyRates).setScale(RESULT_SCALE, RoundingMode.HALF_EVEN);
     }
 
-    private BigDecimal calculateStandardDeviation(List<BigDecimal> numbers) {
+    private static BigDecimal calculateStandardDeviation(List<BigDecimal> numbers) {
         BigDecimal meanValue = computeMean(numbers);
         BigDecimal variance = numbers.stream()
                 .map(val -> val.subtract(meanValue))

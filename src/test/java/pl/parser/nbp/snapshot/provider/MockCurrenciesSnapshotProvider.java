@@ -1,6 +1,7 @@
 package pl.parser.nbp.snapshot.provider;
 
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
+import pl.parser.nbp.snapshot.FileNotLoadedException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -14,7 +15,7 @@ public class MockCurrenciesSnapshotProvider implements CurrenciesSnapshotProvide
             File reader = new File(String.format(FILE_PATH, fileName));
             return (CurrenciesSnapshotResponse) CurrenciesSnapshotResponse.getUnmarshaller().unmarshal(reader);
         } catch (JAXBException e) {
-            throw new RuntimeException(e);
+            throw new FileNotLoadedException(e);
         }
 
     }

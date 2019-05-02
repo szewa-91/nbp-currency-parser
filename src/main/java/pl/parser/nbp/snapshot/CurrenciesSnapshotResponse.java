@@ -30,6 +30,10 @@ public class CurrenciesSnapshotResponse {
     @XmlElement(name = "pozycja")
     private List<CurrencySnapshot> positions;
 
+    public static Unmarshaller getUnmarshaller() throws JAXBException {
+        return JAXBContext.newInstance(CurrenciesSnapshotResponse.class).createUnmarshaller();
+    }
+
     public String getTableNumber() {
         return tableNumber;
     }
@@ -60,9 +64,5 @@ public class CurrenciesSnapshotResponse {
 
     public void setPositions(List<CurrencySnapshot> positions) {
         this.positions = positions;
-    }
-
-    public static Unmarshaller getUnmarshaller() throws JAXBException {
-        return JAXBContext.newInstance(CurrenciesSnapshotResponse.class).createUnmarshaller();
     }
 }

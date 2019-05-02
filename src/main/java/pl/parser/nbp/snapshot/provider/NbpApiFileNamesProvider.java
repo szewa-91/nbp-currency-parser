@@ -1,5 +1,7 @@
 package pl.parser.nbp.snapshot.provider;
 
+import pl.parser.nbp.snapshot.FileNotLoadedException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,7 +46,7 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
             return reader.lines().collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new FileNotLoadedException(e);
         }
     }
 
