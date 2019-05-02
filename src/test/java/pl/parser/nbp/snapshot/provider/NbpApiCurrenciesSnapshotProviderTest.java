@@ -5,6 +5,7 @@ import org.junit.Test;
 import pl.parser.nbp.snapshot.CurrenciesSnapshotResponse;
 import pl.parser.nbp.snapshot.CurrencySnapshot;
 
+import javax.xml.bind.JAXBException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -24,7 +25,7 @@ public class NbpApiCurrenciesSnapshotProviderTest {
     }
 
     @Test
-    public void shouldParseSnapshot() {
+    public void shouldParseSnapshot() throws JAXBException {
         CurrenciesSnapshotResponse snapshotFromUrl = currenciesSnapshotReader.getCurrencies(FILE);
 
         assertThat(snapshotFromUrl.getTableNumber()).isEqualTo("73/C/NBP/2007");

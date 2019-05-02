@@ -10,14 +10,13 @@ public class NbpApiCurrenciesSnapshotProvider implements CurrenciesSnapshotProvi
     private static final String NBP_URL = "http://www.nbp.pl/kursy/xml/%s.xml";
 
     @Override
-    public CurrenciesSnapshotResponse getCurrencies(String file) {
+    public CurrenciesSnapshotResponse getCurrencies(String file) throws JAXBException {
         try {
             URL url = new URL(String.format(NBP_URL, file));
             return (CurrenciesSnapshotResponse) CurrenciesSnapshotResponse.getUnmarshaller().unmarshal(url);
-        } catch (JAXBException | MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 }
