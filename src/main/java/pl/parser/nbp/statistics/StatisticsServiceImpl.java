@@ -35,6 +35,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     private BigDecimal computeSellRateStandardDeviation(Collection<CurrencySnapshot> currencySnapshots) {
         List<BigDecimal> sellRates = currencySnapshots.stream()
+                .filter(currencySnapshot -> currencySnapshot.getSellRate() != null)
                 .map(CurrencySnapshot::getSellRate)
                 .collect(toList());
 
@@ -43,6 +44,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     private BigDecimal computeMeanBuyRate(Collection<CurrencySnapshot> currencySnapshots) {
         List<BigDecimal> buyRates = currencySnapshots.stream()
+                .filter(currencySnapshot -> currencySnapshot.getBuyRate() != null)
                 .map(CurrencySnapshot::getBuyRate)
                 .collect(toList());
         return computeMean(buyRates);

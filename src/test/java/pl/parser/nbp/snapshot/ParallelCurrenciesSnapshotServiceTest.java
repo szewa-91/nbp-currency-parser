@@ -30,8 +30,8 @@ public class ParallelCurrenciesSnapshotServiceTest {
 
     @Before
     public void setUp() {
-        currenciesSnapshotService = new ParallelCurrenciesSnapshotService(fileNamesProvider, currenciesSnapshotProvider);
-
+        currenciesSnapshotService =
+                new ParallelCurrenciesSnapshotService(fileNamesProvider, currenciesSnapshotProvider, 5, 10);
     }
 
     @Test
@@ -45,7 +45,6 @@ public class ParallelCurrenciesSnapshotServiceTest {
 
         assertThat(currenciesSnapshotResponse)
                 .containsExactly(RESPONSE_1, RESPONSE_2);
-
     }
 
     @Test
@@ -64,7 +63,6 @@ public class ParallelCurrenciesSnapshotServiceTest {
 
         assertThat(currenciesSnapshotResponse)
                 .containsExactly(RESPONSE_1);
-
     }
 
     @Test
