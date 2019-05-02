@@ -25,8 +25,7 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
     @Override
     public Collection<String> getFileNames(LocalDate startDate, LocalDate endDate) {
         return allFileNames(startDate, endDate)
-                .filter(filterByPrefix())
-                .filter(filterByDate(startDate, endDate))
+                .filter(filterByPrefix().and(filterByDate(startDate, endDate)))
                 .collect(Collectors.toList());
     }
 
@@ -35,12 +34,6 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
                 .map(this::getFileNamesForYear)
                 .flatMap(Collection::stream)
                 .map(removeLeadingWhitespace());
-    }
-
-    private Function<String, String> removeLeadingWhitespace() {
-        return fileName -> fileName.startsWith(UNNECESARY_WHITESPACE_PREFIX)
-                ? fileName.substring(1)
-                : fileName;
     }
 
     private Collection<String> getFileNamesForYear(String year) {
@@ -53,6 +46,12 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    private Function<String, String> removeLeadingWhitespace() {
+        return fileName -> fileName.startsWith(UNNECESARY_WHITESPACE_PREFIX)
+                ? fileName.substring(1)
+                : fileName;
     }
 
     private Collection<String> resolveYears(LocalDate startDate, LocalDate endDate) {
