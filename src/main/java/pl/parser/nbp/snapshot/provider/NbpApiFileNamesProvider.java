@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class NbpApiFileNamesProvider implements FileNamesProvider {
-    private static final String DIR_FILE = "https://www.nbp.pl/kursy/xml/dir.txt";
+    private static final String DIR_FILE = "https://www.nbp.pl/kursy/xml/dir%s.txt";
     private static final String FILENAME_PREFIX = "c";
     private static final int DATE_SUBSTRING_BEGIN_INDEX = 5;
     private static final String UNNECESARY_WHITESPACE_PREFIX = "\uFEFF";
@@ -20,7 +20,7 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
 
     @Override
     public Collection<String> getFileNames(LocalDate startDate, LocalDate endDate) {
-        return getAllFileNames().stream()
+        return getFileNamesForYear(resolveYearString(startDate, endDate)).stream()
                 .map(removeLeadingWhitespace())
                 .filter(filterByPrefix())
                 .filter(filterByDate(startDate, endDate))
@@ -33,9 +33,9 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
                 : fileName;
     }
 
-    private Collection<String> getAllFileNames() {
+    private Collection<String> getFileNamesForYear(String year) {
         try {
-            URL url = new URL(DIR_FILE);
+            URL url = new URL(String.format(DIR_FILE, year));
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(url.openStream()));
             return reader.lines().collect(Collectors.toList());
@@ -57,4 +57,9 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
         };
     }
 
+
+    private String resolveYearString(LocalDate startDate, LocalDate endDate) {
+        int currentYear = LocalDate.now().getYear();
+        return currentYear == startDate.getYear() ? "" : Integer.toString(startDate.getYear());
+    }
 }
