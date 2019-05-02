@@ -17,20 +17,9 @@ public class StatisticsServiceImpl implements StatisticsService {
     @Override
     public CurrencyStatistics calculateStatistics(Collection<CurrencySnapshot> currencySnapshots) {
         CurrencyStatistics currencyStatistics = new CurrencyStatistics();
-        currencyStatistics.setCurrencyCode(computeCurrencyCode(currencySnapshots));
         currencyStatistics.setMeanBuyRate(computeMeanBuyRate(currencySnapshots));
         currencyStatistics.setSellRateStandardDeviation(computeSellRateStandardDeviation(currencySnapshots));
         return currencyStatistics;
-    }
-
-    private String computeCurrencyCode(Collection<CurrencySnapshot> currencySnapshots) {
-        List<String> currencyCodesInSnapshots = currencySnapshots.stream()
-                .map(CurrencySnapshot::getCurrencyCode)
-                .distinct().collect(toList());
-        if (currencyCodesInSnapshots.size() > 1) {
-            throw new IllegalArgumentException("Snapshots of different currencies given as input.");
-        }
-        return currencyCodesInSnapshots.get(0);
     }
 
     private BigDecimal computeSellRateStandardDeviation(Collection<CurrencySnapshot> currencySnapshots) {
@@ -38,6 +27,10 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .filter(currencySnapshot -> currencySnapshot.getSellRate() != null)
                 .map(CurrencySnapshot::getSellRate)
                 .collect(toList());
+
+        if (sellRates.isEmpty()) {
+            return null;
+        }
 
         return calculateStandardDeviation(sellRates);
     }
@@ -47,6 +40,11 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .filter(currencySnapshot -> currencySnapshot.getBuyRate() != null)
                 .map(CurrencySnapshot::getBuyRate)
                 .collect(toList());
+
+        if (buyRates.isEmpty()) {
+            return null;
+        }
+
         return computeMean(buyRates);
     }
 
