@@ -8,11 +8,14 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 import static java.util.stream.Collectors.toList;
 
 public class StatisticsServiceImpl implements StatisticsService {
-    private static final int CALCULATION_SCALE = 4;
+    private static final int CALCULATION_SCALE = 6;
+    private static final int RESULT_SCALE = 4;
+    private static final UnaryOperator<BigDecimal> TO_SQUARE = val -> val.pow(2);
 
     @Override
     public CurrencyStatistics calculateStatistics(Collection<CurrencySnapshot> currencySnapshots) {
@@ -32,7 +35,7 @@ public class StatisticsServiceImpl implements StatisticsService {
             return null;
         }
 
-        return calculateStandardDeviation(sellRates);
+        return calculateStandardDeviation(sellRates).setScale(RESULT_SCALE, RoundingMode.HALF_EVEN);
     }
 
     private BigDecimal computeMeanBuyRate(Collection<CurrencySnapshot> currencySnapshots) {
@@ -45,14 +48,14 @@ public class StatisticsServiceImpl implements StatisticsService {
             return null;
         }
 
-        return computeMean(buyRates);
+        return computeMean(buyRates).setScale(RESULT_SCALE, RoundingMode.HALF_EVEN);
     }
 
     private BigDecimal calculateStandardDeviation(List<BigDecimal> numbers) {
         BigDecimal meanValue = computeMean(numbers);
         BigDecimal variance = numbers.stream()
                 .map(val -> val.subtract(meanValue))
-                .map(val -> val.pow(2))
+                .map(TO_SQUARE)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .divide(BigDecimal.valueOf(numbers.size()), CALCULATION_SCALE, RoundingMode.HALF_EVEN);
         return variance.sqrt(MathContext.DECIMAL32).setScale(CALCULATION_SCALE, RoundingMode.HALF_EVEN);
