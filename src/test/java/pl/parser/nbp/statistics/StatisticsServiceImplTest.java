@@ -25,9 +25,9 @@ public class StatisticsServiceImplTest {
         CurrencyStatistics currencyStatistics = statisticsService.calculateStatistics(currencySnapshots);
 
         assertThat(currencyStatistics.getAverageBuyRate())
-                .isEqualByComparingTo(new BigDecimal("4.6333"));
+                .isEqualTo(new BigDecimal("4.6333"));
         assertThat(currencyStatistics.getSellRateStandardDeviation())
-                .isEqualByComparingTo(new BigDecimal("0.1249"));
+                .isEqualTo(new BigDecimal("0.1249"));
 
     }
 

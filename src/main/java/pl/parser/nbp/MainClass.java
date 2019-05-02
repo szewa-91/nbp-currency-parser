@@ -18,7 +18,12 @@ public class MainClass {
         LocalDate endDate = LocalDate.parse(args[2]);
         CurrencyStatistics statistics =
                 getCurrencyService().getCurrencyStatistics(currency, startDate, endDate);
-        System.out.println(statistics);
+        printStatistics(statistics);
+    }
+
+    private static void printStatistics(CurrencyStatistics statistics) {
+        System.out.println(statistics.getAverageBuyRate());
+        System.out.println(statistics.getSellRateStandardDeviation());
     }
 
     private static CurrencyService getCurrencyService() {
