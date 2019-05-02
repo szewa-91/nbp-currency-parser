@@ -8,8 +8,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class NbpApiFileNamesProvider implements FileNamesProvider {
     private static final String DIR_FILE = "https://www.nbp.pl/kursy/xml/dir%s.txt";
@@ -17,14 +20,21 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
     private static final int DATE_SUBSTRING_BEGIN_INDEX = 5;
     private static final String UNNECESARY_WHITESPACE_PREFIX = "\uFEFF";
     private static final String DATE_PATTERN_IN_FILENAME = "yyMMdd";
+    private static final String CURRENT_YEAR_STRING = "";
 
     @Override
     public Collection<String> getFileNames(LocalDate startDate, LocalDate endDate) {
-        return getFileNamesForYear(resolveYearString(startDate, endDate)).stream()
-                .map(removeLeadingWhitespace())
+        return allFileNames(startDate, endDate)
                 .filter(filterByPrefix())
                 .filter(filterByDate(startDate, endDate))
                 .collect(Collectors.toList());
+    }
+
+    private Stream<String> allFileNames(LocalDate startDate, LocalDate endDate) {
+        return resolveYears(startDate, endDate).stream()
+                .map(this::getFileNamesForYear)
+                .flatMap(Collection::stream)
+                .map(removeLeadingWhitespace());
     }
 
     private Function<String, String> removeLeadingWhitespace() {
@@ -45,6 +55,19 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
         }
     }
 
+    private Collection<String> resolveYears(LocalDate startDate, LocalDate endDate) {
+        int currentYear = LocalDate.now().getYear();
+        return IntStream.rangeClosed(startDate.getYear(), endDate.getYear())
+                .mapToObj(getYearString(currentYear))
+                .collect(Collectors.toList());
+    }
+
+    private IntFunction<String> getYearString(int currentYear) {
+        return year -> currentYear == year
+                ? CURRENT_YEAR_STRING
+                : Integer.toString(year);
+    }
+
     private static Predicate<String> filterByPrefix() {
         return fileName -> fileName.startsWith(FILENAME_PREFIX);
     }
@@ -55,11 +78,5 @@ public class NbpApiFileNamesProvider implements FileNamesProvider {
             LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(DATE_PATTERN_IN_FILENAME));
             return !date.isBefore(startDate) && !date.isAfter(endDate);
         };
-    }
-
-
-    private String resolveYearString(LocalDate startDate, LocalDate endDate) {
-        int currentYear = LocalDate.now().getYear();
-        return currentYear == startDate.getYear() ? "" : Integer.toString(startDate.getYear());
     }
 }

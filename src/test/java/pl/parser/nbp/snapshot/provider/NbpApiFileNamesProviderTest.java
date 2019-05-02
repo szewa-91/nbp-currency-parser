@@ -33,6 +33,16 @@ public class NbpApiFileNamesProviderTest {
     }
 
     @Test
+    public void shouldGetFileNamesFromNbpForMultipleYears() {
+        Collection<String> fileNames = nbpApiFileNamesProvider.getFileNames(START_DATE_2018, END_DATE_2019);
+
+        assertThat(fileNames).containsExactly(
+                "c247z181220", "c248z181221", "c249z181224", "c250z181227", "c251z181228",
+                "c252z181231", "c001z190102", "c002z190103", "c003z190104", "c004z190107"
+        );
+    }
+
+    @Test
     public void shouldFixBrokenFileName() {
         Collection<String> fileNames = nbpApiFileNamesProvider.getFileNames(START_DATE_BROKEN_NAME, END_DATE_2019);
 
