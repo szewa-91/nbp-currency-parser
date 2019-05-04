@@ -17,7 +17,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Parameterized.class)
 public class StatisticsServiceImplTest {
+    private BigDecimal buyMean;
+    private BigDecimal sellDeviation;
+    private Collection<CurrencySnapshot> currencySnapshots;
+
     private StatisticsService statisticsService = new StatisticsServiceImpl();
+
+    public StatisticsServiceImplTest(String buyAverage, String sellDeviation, Collection<CurrencySnapshot> currencySnapshots) {
+        this.buyMean = buyAverage == null
+                ? null
+                : new BigDecimal(buyAverage).setScale(4, RoundingMode.HALF_EVEN);
+        this.sellDeviation = sellDeviation == null
+                ? null
+                : new BigDecimal(sellDeviation).setScale(4, RoundingMode.HALF_EVEN);
+        this.currencySnapshots = currencySnapshots;
+    }
 
     @Parameters(name = "{index}: average: {0}, deviation={1}")
     public static Iterable<Object[]> data() {
@@ -37,7 +51,7 @@ public class StatisticsServiceImplTest {
                         currencySnapshot("2.1465", "2.2465"),
                         currencySnapshot("2.1364", "2.2364"),
                         currencySnapshot("2.1157", "2.2157"))
-                        },
+                },
                 {"4.1505", "0.0125", asList(
                         currencySnapshot("4.1301", "4.2135"),
                         currencySnapshot("4.1621", "4.2461"),
@@ -47,19 +61,13 @@ public class StatisticsServiceImplTest {
         });
     }
 
-    public StatisticsServiceImplTest(String buyAverage, String sellDeviation, Collection<CurrencySnapshot> currencySnapshots) {
-        this.buyMean = buyAverage == null
-                ? null
-                : new BigDecimal(buyAverage).setScale(4, RoundingMode.HALF_EVEN);
-        this.sellDeviation = sellDeviation == null
-                ? null
-                : new BigDecimal(sellDeviation).setScale(4, RoundingMode.HALF_EVEN);
-        this.currencySnapshots = currencySnapshots;
+    private static CurrencySnapshot currencySnapshot(String buyRate, String sellRate) {
+        CurrencySnapshot currencySnapshot = new CurrencySnapshot();
+        currencySnapshot.setCurrencyCode("USD");
+        currencySnapshot.setBuyRate(new BigDecimal(buyRate));
+        currencySnapshot.setSellRate(new BigDecimal(sellRate));
+        return currencySnapshot;
     }
-
-    private BigDecimal buyMean;
-    private BigDecimal sellDeviation;
-    private Collection<CurrencySnapshot> currencySnapshots;
 
     @Test
     public void shouldCalculateStatistics() {
@@ -71,13 +79,5 @@ public class StatisticsServiceImplTest {
         assertThat(currencyStatistics.getSellRateStandardDeviation())
                 .isEqualTo(sellDeviation);
 
-    }
-
-    private static CurrencySnapshot currencySnapshot(String buyRate, String sellRate) {
-        CurrencySnapshot currencySnapshot = new CurrencySnapshot();
-        currencySnapshot.setCurrencyCode("USD");
-        currencySnapshot.setBuyRate(new BigDecimal(buyRate));
-        currencySnapshot.setSellRate(new BigDecimal(sellRate));
-        return currencySnapshot;
     }
 }

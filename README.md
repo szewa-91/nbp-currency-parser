@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7805dfa371f44ad48290276e581c0b3d)](https://www.codacy.com/app/marcin91.szewczyk/nbp-currency-parser?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=szewa-91/nbp-currency-parser&amp;utm_campaign=Badge_Grade)
+
 # Currency parser for NBP service
 This application retrieves files with currency data from NBP servers (based
 on instructions at [this page](https://www.nbp.pl/home.aspx?f=/kursy/instrukcja_pobierania_kursow_walut.html).
